@@ -1,75 +1,179 @@
-# React + TypeScript + Vite
+# Component Library
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A reusable React and TypeScript component library built for the Per Scholas React and TypeScript component library lab.
 
-Currently, two official plugins are available:
+The project demonstrates reusable components, TypeScript interfaces, prop handling, component composition, Tailwind CSS styling, and component testing.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+- Reusable React components
+- TypeScript prop interfaces
+- Optional props
+- Callback functions
+- Component composition
+- `children` prop support
+- Tailwind CSS styling
+- Vitest testing
+- React Testing Library
+- Responsive design
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Components
 
-## Expanding the ESLint configuration
+### AlertBox
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Displays customizable alerts for different situations.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Supported alert types:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- Success
+- Error
+- Warning
+- Info
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Example:
 
-```
+    <AlertBox
+      type="success"
+      message="Profile updated successfully!"
+      onClose={() => setShowAlert(false)}
+    >
+      <p>Additional information about the update.</p>
+    </AlertBox>
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### UserProfileCard
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Displays user information such as their name, email, role, and avatar.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Example:
 
-```
+    <UserProfileCard
+      user={user}
+      showEmail={true}
+      showRole={true}
+      onEdit={(userId) => alert(`Editing user ${userId}`)}
+    >
+      <p>Last login: 2 hours ago</p>
+    </UserProfileCard>
+
+### ProductDisplay
+
+Displays product information including the product name, price, description, image, and stock status.
+
+Example:
+
+    <ProductDisplay
+      product={product}
+      showDescription={true}
+      showStockStatus={true}
+      onAddToCart={(productId) => alert(`Added ${productId} to cart`)}
+    >
+      <p>Free shipping available</p>
+    </ProductDisplay>
+
+## Project Structure
+
+    src/
+    ├── components/
+    │   ├── AlertBox/
+    │   │   ├── AlertBox.tsx
+    │   │   └── AlertBox.test.tsx
+    │   ├── UserProfileCard/
+    │   │   ├── UserProfileCard.tsx
+    │   │   └── UserProfileCard.test.tsx
+    │   └── ProductDisplay/
+    │       ├── ProductDisplay.tsx
+    │       └── ProductDisplay.test.tsx
+    ├── types/
+    │   └── index.ts
+    ├── App.tsx
+    ├── index.css
+    ├── main.tsx
+    └── testSetup.ts
+
+## Technologies
+
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
+- Vitest
+- React Testing Library
+
+## Installation
+
+Clone the repository and install the dependencies:
+
+    git clone <your-repository-url>
+    cd component-library
+    npm install
+
+## Running the Application
+
+Start the development server:
+
+    npm run dev
+
+Open the local URL provided by Vite in your browser.
+
+## Running Tests
+
+Run the component tests with:
+
+    npm run test
+
+The tests verify:
+
+- Alert message rendering
+- Alert children rendering
+- Alert close functionality
+- User information rendering
+- Optional email display
+- User edit functionality
+- Product information rendering
+- Stock status
+- Add-to-cart functionality
+
+## Building the Project
+
+Create a production build with:
+
+    npm run build
+
+## TypeScript Interfaces
+
+The component interfaces are defined in:
+
+    src/types/index.ts
+
+The project includes the following types and interfaces:
+
+- `AlertType`
+- `AlertBoxProps`
+- `User`
+- `UserProfileCardProps`
+- `Product`
+- `ProductDisplayProps`
+
+These interfaces provide type safety and make the components easier to reuse and maintain.
+
+## Component Composition
+
+The components support composition through the `children` prop.
+
+For example:
+
+    <UserProfileCard user={user}>
+      <p>Last login: 2 hours ago</p>
+    </UserProfileCard>
+
+Additional content can be placed inside the component without modifying the component's implementation.
+
+## Testing
+
+Each component has its own test file using Vitest and React Testing Library.
+
+Tests render the components, verify displayed content, test optional props, and simulate user interactions such as clicking buttons.
+
+## Author
+
+Truong Pham
